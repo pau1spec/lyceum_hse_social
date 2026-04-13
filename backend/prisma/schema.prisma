@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+
+  groups    Group[]
+  posts     Post[]
+  comments  Comment[]
+  likes     PostLike[]
+}
+
+model Group {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [id])
+
+  posts       Post[]
+
+  @@unique([name, ownerId])
+}
+
+model Post {
+  id        String     @id @default(cuid())
+  title     String
+  content   String
+  createdAt DateTime   @default(now())
+
+  authorId  String
+  author    User       @relation(fields: [authorId], references: [id])
+
+  groupId   String
+  group     Group      @relation(fields: [groupId], references: [id])
+
+  comments  Comment[]
+  likes     PostLike[]
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id])
+}
+
+model PostLike {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId])
+}
