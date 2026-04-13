@@ -16,7 +16,7 @@
 - Комментарии к постам
 - Удаление комментариев
 
-  
+## Использовано 
 
 - Frontend: React + TypeScript (Vite)
 - Backend: NestJS
