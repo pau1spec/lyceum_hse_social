@@ -23,3 +23,30 @@
 - База данных: PostgreSQL (Docker)
 - ORM: Prisma
 
+##  Как запустить проект
+
+### 1. Клонировать репозиторий
+
+git clone 
+cd lyceum-social
+
+### 2. Запустить базу
+
+docker compose up -d
+
+### 3. Запустить backend
+
+cd backend
+npm install
+npm run start:dev
+
+### 4. Запустить frontend
+
+cd frontend
+npm install
+npm run dev
+
+### 5. Открыть сайт
+
+http://localhost:5173
+
